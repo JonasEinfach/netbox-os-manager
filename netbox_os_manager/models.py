@@ -42,6 +42,7 @@ ImageFolder = "test"
 # Choices for Image Status
 # Choices not changeable by admin via configuration.py
 
+
 class ImageStatusChoices(ChoiceSet):
     IMAGE_STATUS_UNKOWN = "unkown"
     IMAGE_STATUS_ACTIVE = "active"
@@ -53,10 +54,12 @@ class ImageStatusChoices(ChoiceSet):
         (IMAGE_STATUS_ERROR_MD5_MISMATCH, "Error-MD5-Mismatch", "red"),
     ]
 
+
 # ==============================================================================
 
 # Choices for Image Distribution Server download method
 # Choices not changeable by admin via configuration.py
+
 
 class ImageDistributionServerDownloadMethodChoices(ChoiceSet):
     DOWNLOAD_METHOD_HTTP = "http"
@@ -64,8 +67,9 @@ class ImageDistributionServerDownloadMethodChoices(ChoiceSet):
 
     CHOICES = [
         (DOWNLOAD_METHOD_HTTP, "HTTP", "yellow"),
-        (DOWNLOAD_METHOD_FTP, "FTP", "yellow")
+        (DOWNLOAD_METHOD_FTP, "FTP", "yellow"),
     ]
+
 
 # ==============================================================================
 
@@ -87,6 +91,7 @@ class TaskLogSubStatusChoices(ChoiceSet):
         (STATUS_ERROR, "Error", "red"),
     ]
 
+
 # ==============================================================================
 
 # Choices for Task Log Level
@@ -106,6 +111,7 @@ class TaskLogLevelChoices(ChoiceSet):
         (LOG_LEVEL_ERROR, "Error", "red"),
         (LOG_LEVEL_DEBUG, "Debug", "pink"),
     ]
+
 
 # ==============================================================================
 
@@ -140,13 +146,14 @@ class UpgradeDeviceStatusChoices(ChoiceSet):
         (STATUS_UPGRADE_DONE, "Image Upgrade Done", "green"),
     ]
 
+
 # ==============================================================================
 
 # Choices for Upgrade Device
 # Choices not changeable by admin via configuration.py
 
 
-class UpgradeDeviceFilesystemChoices(ChoiceSet):
+class SettingsDeviceFilesystemChoices(ChoiceSet):
     FILESYSTEM_BOOTFLASH = "bootflash:"
     FILESYSTEM_SDFLASH = "sdflash:"
 
@@ -155,9 +162,27 @@ class UpgradeDeviceFilesystemChoices(ChoiceSet):
         (FILESYSTEM_SDFLASH, "sdflash:", "grey"),
     ]
 
+
+# ==============================================================================
+
+# Choices for Upgrade Device
+# Choices not changeable by admin via configuration.py
+
+
+class SettingsDeviceUpgradeMode(ChoiceSet):
+    UPGRADE_INSTALL_MODE = "INSTALL_MODE"
+    UPGRADE_BUNDLE_MODE = "BUNDLE_MODE"
+
+    CHOICES = [
+        (UPGRADE_INSTALL_MODE, "INSTALL_MODE", "grey"),
+        (UPGRADE_BUNDLE_MODE, "BUNDLE_MODE", "grey"),
+    ]
+
+
 # ==============================================================================
 # Models
 # ==============================================================================
+
 
 class Image(NetBoxModel):
     image = models.FileField(
@@ -211,9 +236,9 @@ class Image(NetBoxModel):
     )
 
     class Meta:
-        ordering = ['filename', 'version']
-        verbose_name = ('image')
-        verbose_name_plural = ('images')
+        ordering = ["filename", "version"]
+        verbose_name = "image"
+        verbose_name_plural = "images"
 
     def __str__(self):
         return self.filename
@@ -224,11 +249,7 @@ class Image(NetBoxModel):
 
 class GoldenImage(NetBoxModel):
 
-    name = models.CharField(
-        verbose_name='name',
-        max_length=100,
-        unique=True
-    )
+    name = models.CharField(verbose_name="name", max_length=100, unique=True)
 
     image = models.ForeignKey(
         verbose_name="image",
@@ -240,9 +261,7 @@ class GoldenImage(NetBoxModel):
     )
 
     description = models.CharField(
-        verbose_name='description',
-        max_length=200,
-        blank=True
+        verbose_name="description", max_length=200, blank=True
     )
 
     comments = models.TextField(
@@ -250,57 +269,35 @@ class GoldenImage(NetBoxModel):
     )
 
     regions = models.ManyToManyField(
-        to='dcim.Region',
-        related_name='+',
-        blank=True
-    )
+        to="dcim.Region", related_name="+", blank=True)
 
     site_groups = models.ManyToManyField(
-        to='dcim.SiteGroup',
-        related_name='+',
-        blank=True
+        to="dcim.SiteGroup", related_name="+", blank=True
     )
 
     sites = models.ManyToManyField(
-        to='dcim.Site',
-        related_name='+',
-        blank=True
-    )
+        to="dcim.Site", related_name="+", blank=True)
 
     locations = models.ManyToManyField(
-        to='dcim.Location',
-        related_name='+',
-        blank=True
-    )
+        to="dcim.Location", related_name="+", blank=True)
 
     device_types = models.ManyToManyField(
-        to='dcim.DeviceType',
-        related_name='+',
-        blank=True
+        to="dcim.DeviceType", related_name="+", blank=True
     )
 
     roles = models.ManyToManyField(
-        to='dcim.DeviceRole',
-        related_name='+',
-        blank=True
-    )
+        to="dcim.DeviceRole", related_name="+", blank=True)
 
     platforms = models.ManyToManyField(
-        to='dcim.Platform',
-        related_name='+',
-        blank=True
-    )
+        to="dcim.Platform", related_name="+", blank=True)
 
     tags = models.ManyToManyField(
-        to='extras.Tag',
-        related_name='+',
-        blank=True
-    )
+        to="extras.Tag", related_name="+", blank=True)
 
     class Meta:
-        ordering = ['name', 'image']
-        verbose_name = ('golden image')
-        verbose_name_plural = ('golden images')
+        ordering = ["name", "image"]
+        verbose_name = "golden image"
+        verbose_name_plural = "golden images"
 
     def __str__(self):
         return self.name
@@ -310,11 +307,7 @@ class GoldenImage(NetBoxModel):
 
 
 class ImageDistributionServer(NetBoxModel):
-    name = models.CharField(
-        verbose_name='name',
-        max_length=100,
-        unique=True
-    )
+    name = models.CharField(verbose_name="name", max_length=100, unique=True)
 
     ip = models.ForeignKey(
         verbose_name="Image distribution server ip",
@@ -418,13 +411,6 @@ class ImageDistributionServer(NetBoxModel):
 #         default=UpgradeDeviceStatusChoices.STATUS_UNKNOWN,
 #     )
 
-#     device_remote_filesystem = models.CharField(
-#         verbose_name="Device remote filesystem",
-#         max_length=255,
-#         choices=UpgradeDeviceFilesystemChoices,
-#         default=UpgradeDeviceFilesystemChoices.FILESYSTEM_BOOTFLASH,
-#     )
-
 #     image_uploaded = models.BooleanField(
 #         verbose_name="Image uploaded",
 #         default=False,
@@ -480,11 +466,6 @@ class ImageDistributionServer(NetBoxModel):
 #     def get_status_color(self):
 #         return UpgradeDeviceStatusChoices.colors.get(self.status)
 
-#     def get_device_remote_filesystem_color(self):
-#         return UpgradeDeviceFilesystemChoices.colors.get(
-#             self.device_remote_filesystem
-#         )
-
 #     def save(self, *args, **kwargs) -> None:
 #         if not self.pk:
 #             # Initial Upgrade Device Creation
@@ -512,6 +493,49 @@ class ImageDistributionServer(NetBoxModel):
 #                 UpgradeDeviceStatusChoices.STATUS_IMAGE_ACTIVATION_SCHEDULED
 #             )
 #             super().save()
+
+
+# ==============================================================================
+
+
+class SettingsDeviceType(NetBoxModel):
+    device_type = models.OneToOneField(
+        to="dcim.DeviceType", on_delete=models.CASCADE, related_name="+", blank=True
+    )
+
+    device_remote_filesystem = models.CharField(
+        verbose_name="Device remote filesystem",
+        max_length=255,
+        choices=SettingsDeviceFilesystemChoices,
+        default=SettingsDeviceFilesystemChoices.FILESYSTEM_BOOTFLASH,
+    )
+
+    device_upgrade_mode = models.CharField(
+        verbose_name="Device upgrade mode",
+        max_length=255,
+        choices=SettingsDeviceUpgradeMode,
+        default=SettingsDeviceUpgradeMode.UPGRADE_INSTALL_MODE,
+    )
+
+    max_attempts_after_reload = models.PositiveSmallIntegerField(
+        verbose_name="Maximum number of attempts to wait until the device is reachable again",
+        default=15,
+    )
+
+    seconds_between_attemps_after_reload = models.PositiveSmallIntegerField(
+        verbose_name="Seconds to wait between the attempts to check if the device is reachable again",
+        default=60,
+    )
+
+    minutes_image_add_timeout = models.PositiveSmallIntegerField(
+        verbose_name="Timeout in minutes to wait until the device has successfully added the image",
+        default=10,
+    )
+
+    minutes_image_activation_timeout = models.PositiveSmallIntegerField(
+        verbose_name="Timeout in minutes to wait until the device has successfully activated the image",
+        default=20,
+    )
 
 
 # ==============================================================================
