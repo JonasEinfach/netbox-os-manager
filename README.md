@@ -15,6 +15,14 @@ Use this plugin on your own risk! Test the update proccess in a test environment
 
 ## Image Upload
 
+### Image Upload - Architecture
+
+![Image Upload Architecture](./diagrams/image_upload.drawio.svg)
+
+### Image Upload - Process
+
+![Image Upload Process](./diagrams/image_upload_process.drawio.svg)
+
 ## Image Upgrade
 
 ### Image Add
