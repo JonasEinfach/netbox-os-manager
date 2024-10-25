@@ -17,7 +17,7 @@ Use this plugin on your own risk! Test the update proccess in a test environment
 
 ### Image Upload - Architecture
 
-![Image Upload Architecture](./diagrams/image_upload.drawio.svg)
+![Image Upload Architecture](./diagrams/image_upload_architecture.drawio.svg)
 
 ### Image Upload - Process
 
@@ -25,6 +25,20 @@ Use this plugin on your own risk! Test the update proccess in a test environment
 
 ## Image Upgrade
 
-### Image Add
+### Image Add - Architecture
+
+![Image Add Architecture](./diagrams/image_add_architecture.drawio.svg)
+
+### Image Add - Process
+
+![Image Add Process](./diagrams/image_add_process.drawio.svg)
 
 ### Image Activation
+
+### Image Activation - Architecture
+
+![Image Activation Architecture](./diagrams/image_activation_architecture.drawio.svg)
+
+### Image Activation - Process
+
+![Image Activation Process](./diagrams/image_activation_process.drawio.svg)

@@ -29,6 +29,9 @@ from pathlib import Path
 import datetime
 from django.utils import timezone
 
+# For Integer Validator
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 # ==============================================================================
 # Global Variables
 # ==============================================================================
@@ -257,7 +260,7 @@ class GoldenImage(NetBoxModel):
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name="image",
+        related_name="+",
     )
 
     description = models.CharField(
@@ -268,31 +271,25 @@ class GoldenImage(NetBoxModel):
         blank=True,
     )
 
-    regions = models.ManyToManyField(
-        to="dcim.Region", related_name="+", blank=True)
+    regions = models.ManyToManyField(to="dcim.Region", related_name="+", blank=True)
 
     site_groups = models.ManyToManyField(
         to="dcim.SiteGroup", related_name="+", blank=True
     )
 
-    sites = models.ManyToManyField(
-        to="dcim.Site", related_name="+", blank=True)
+    sites = models.ManyToManyField(to="dcim.Site", related_name="+", blank=True)
 
-    locations = models.ManyToManyField(
-        to="dcim.Location", related_name="+", blank=True)
+    locations = models.ManyToManyField(to="dcim.Location", related_name="+", blank=True)
 
     device_types = models.ManyToManyField(
         to="dcim.DeviceType", related_name="+", blank=True
     )
 
-    roles = models.ManyToManyField(
-        to="dcim.DeviceRole", related_name="+", blank=True)
+    roles = models.ManyToManyField(to="dcim.DeviceRole", related_name="+", blank=True)
 
-    platforms = models.ManyToManyField(
-        to="dcim.Platform", related_name="+", blank=True)
+    platforms = models.ManyToManyField(to="dcim.Platform", related_name="+", blank=True)
 
-    tags = models.ManyToManyField(
-        to="extras.Tag", related_name="+", blank=True)
+    tags = models.ManyToManyField(to="extras.Tag", related_name="+", blank=True)
 
     class Meta:
         ordering = ["name", "image"]
@@ -315,21 +312,29 @@ class ImageDistributionServer(NetBoxModel):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        related_name="imagedistributionserver",
+        related_name="+",
+    )
+
+    description = models.CharField(
+        verbose_name="Description", max_length=200, blank=True
+    )
+
+    comments = models.TextField(
+        blank=True,
     )
 
     download_method = models.CharField(
-        verbose_name="download method",
+        verbose_name="Download method",
         max_length=255,
         choices=ImageDistributionServerDownloadMethodChoices(),
         default=ImageDistributionServerDownloadMethodChoices.DOWNLOAD_METHOD_HTTP,
     )
 
-    custom_port = ArrayField(
-        base_field=models.PositiveIntegerField(),
+    custom_port = models.PositiveSmallIntegerField(
         blank=True,
         null=True,
-        verbose_name="Soure Ports",
+        verbose_name="Custom port",
+        validators=[MinValueValidator(1), MaxValueValidator(65535)],
     )
 
 
