@@ -126,7 +126,6 @@ class GoldenImageForm(NetBoxModelForm):
         fields = (
             "name",
             "image",
-            "version",
             "description",
             "regions",
             "site_groups",
@@ -146,7 +145,7 @@ class ImageDistributionServerForm(NetBoxModelForm):
 
     ip = DynamicModelChoiceField(
         queryset=IPAddress.objects.all(),
-        label="Image",
+        label="IP",
         help_text="Chose ip address of image distribution server",
         required=True,
     )

@@ -527,6 +527,7 @@ class SettingsDeviceType(NetBoxModel):
 
     device_remote_filesystem = models.CharField(
         verbose_name="Device remote filesystem",
+        help_text="Chose the type of the file system from the device.",
         max_length=255,
         choices=SettingsDeviceFilesystemChoices,
         default=SettingsDeviceFilesystemChoices.FILESYSTEM_BOOTFLASH,
@@ -534,28 +535,33 @@ class SettingsDeviceType(NetBoxModel):
 
     device_upgrade_mode = models.CharField(
         verbose_name="Device upgrade mode",
+        help_text="Chose the upgrade mode of the device.",
         max_length=255,
         choices=SettingsDeviceUpgradeMode,
         default=SettingsDeviceUpgradeMode.UPGRADE_INSTALL_MODE,
     )
 
     max_attempts_after_reload = models.PositiveSmallIntegerField(
-        verbose_name="Maximum number of attempts to wait until the device is reachable again",
+        verbose_name="Max check attempts",
+        help_text="Maximum number of attempts to wait until the device is reachable again.",
         default=15,
     )
 
     seconds_between_attemps_after_reload = models.PositiveSmallIntegerField(
-        verbose_name="Seconds to wait between the attempts to check if the device is reachable again",
+        verbose_name="Wait time",
+        help_text="Seconds to wait between the attempts to check if the device is reachable again.",
         default=60,
     )
 
     minutes_image_add_timeout = models.PositiveSmallIntegerField(
-        verbose_name="Timeout in minutes to wait until the device has successfully added the image",
+        verbose_name="Image add timeout",
+        help_text="Timeout in minutes to wait until the device has successfully added the image.",
         default=10,
     )
 
     minutes_image_activation_timeout = models.PositiveSmallIntegerField(
-        verbose_name="Timeout in minutes to wait until the device has successfully activated the image",
+        verbose_name="Image activation timeout",
+        help_text="Timeout in minutes to wait until the device has successfully activated the image.",
         default=20,
     )
 
