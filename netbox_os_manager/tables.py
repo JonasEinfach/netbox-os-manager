@@ -98,9 +98,9 @@ class ImageTable(NetBoxTable):
             "md5sum_calculated",
             "version",
             "description",
-            "comments",
             "status",
             "size",
+            "comments",
             "actions",
         )
         default_columns = ("pk", "filename", "version", "status", "size", "description")
@@ -124,7 +124,6 @@ class GoldenImageTable(NetBoxTable):
             "image",
             "version",
             "description",
-            "comments",
             "regions",
             "site_groups",
             "sites",
@@ -132,7 +131,7 @@ class GoldenImageTable(NetBoxTable):
             "device_types",
             "roles",
             "platforms",
-            "tags",
+            "comments",
             "actions",
         )
         default_columns = ("pk", "name", "image", "version", "description")
@@ -155,9 +154,9 @@ class ImageDistributionServerTable(NetBoxTable):
             "ip",
             "name",
             "description",
-            "comments",
             "download_method",
             "custom_port",
+            "comments",
             "actions",
         )
         default_columns = (
@@ -193,6 +192,7 @@ class SettingsDeviceTypeTable(NetBoxTable):
             "seconds_between_attemps_after_reload",
             "minutes_image_add_timeout",
             "minutes_image_activation_timeout",
+            "comments",
             "actions",
         )
         default_columns = (

@@ -246,6 +246,9 @@ class Image(NetBoxModel):
     def __str__(self):
         return self.filename
 
+    def get_absolute_url(self):
+        return reverse("plugins:netbox_os_manager:image", args=[self.pk])
+
 
 # ==============================================================================
 
@@ -289,8 +292,6 @@ class GoldenImage(NetBoxModel):
 
     platforms = models.ManyToManyField(to="dcim.Platform", related_name="+", blank=True)
 
-    tags = models.ManyToManyField(to="extras.Tag", related_name="+", blank=True)
-
     class Meta:
         ordering = ["name", "image"]
         verbose_name = "golden image"
@@ -298,6 +299,9 @@ class GoldenImage(NetBoxModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("plugins:netbox_os_manager:goldenimage", args=[self.pk])
 
 
 # ==============================================================================
@@ -336,6 +340,19 @@ class ImageDistributionServer(NetBoxModel):
         verbose_name="Custom port",
         validators=[MinValueValidator(1), MaxValueValidator(65535)],
     )
+
+    class Meta:
+        ordering = ["name", "ip"]
+        verbose_name = "image distribution server"
+        verbose_name_plural = "image distribution servers"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse(
+            "plugins:netbox_os_manager:imagedistributionserver", args=[self.pk]
+        )
 
 
 # ==============================================================================
@@ -541,6 +558,21 @@ class SettingsDeviceType(NetBoxModel):
         verbose_name="Timeout in minutes to wait until the device has successfully activated the image",
         default=20,
     )
+
+    comments = models.TextField(
+        blank=True,
+    )
+
+    class Meta:
+        ordering = ["device_type", "device_remote_filesystem"]
+        verbose_name = "settings device type"
+        verbose_name_plural = "settings device types"
+
+    def __str__(self):
+        return str(self.device_type.model)
+
+    def get_absolute_url(self):
+        return reverse("plugins:netbox_os_manager:settingsdevicetype", args=[self.pk])
 
 
 # ==============================================================================
