@@ -174,11 +174,12 @@ class SettingsDeviceFilesystemChoices(ChoiceSet):
 
 class SettingsDeviceUpgradeMode(ChoiceSet):
     UPGRADE_INSTALL_MODE = "INSTALL_MODE"
-    UPGRADE_BUNDLE_MODE = "BUNDLE_MODE"
+    # UPGRADE_BUNDLE_MODE = "BUNDLE_MODE"
+    # Bundle mode is still not supported
 
     CHOICES = [
         (UPGRADE_INSTALL_MODE, "INSTALL_MODE", "grey"),
-        (UPGRADE_BUNDLE_MODE, "BUNDLE_MODE", "grey"),
+        # (UPGRADE_BUNDLE_MODE, "BUNDLE_MODE", "grey"),
     ]
 
 
@@ -248,6 +249,9 @@ class Image(NetBoxModel):
 
     def get_absolute_url(self):
         return reverse("plugins:netbox_os_manager:image", args=[self.pk])
+
+    def get_status_color(self):
+        return ImageStatusChoices.colors.get(self.status)
 
 
 # ==============================================================================

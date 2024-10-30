@@ -1,0 +1,63 @@
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Image</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Status</th>
+              <td>
+                {% badge object.get_status_display bg_color=object.get_status_color %}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Filename</th>
+              <td>{{ object.filename }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Version</th>
+              <td>{{ object.version }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Size</th>
+              <td style="white-space:nowrap">
+                {% if object.image.name %}
+                    {{ object.image.size|filesizeformat }}
+                {% else %}
+                    <span>&mdash;</span>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Description</th>
+              <td>{{ object.description }}</td>
+            </tr>
+            <tr>
+              <th scope="row">MD5SUM Expected</th>
+              <td>
+                {% if object.md5sum == object.md5sum_calculated %}
+                  <span class="badge text-bg-green">{{ object.md5sum }}</span></td>
+                {% else %}
+                  <span class="badge text-bg-red">{{ object.md5sum }}</span></td>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">MD5SUM Calculated</th>
+              <td><span class="badge text-bg-green">{{ object.md5sum_calculated }}</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
