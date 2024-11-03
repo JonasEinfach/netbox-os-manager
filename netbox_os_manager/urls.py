@@ -23,6 +23,7 @@ from .views import (
     ImageListView,
     ImageEditView,
     ImageDeleteView,
+    ImageBulkDeleteView,
     GoldenImageView,
     GoldenImageListView,
     GoldenImageEditView,
@@ -52,6 +53,7 @@ urlpatterns = (
     # Images
     path("images/", ImageListView.as_view(), name="image_list"),
     path("images/add/", ImageEditView.as_view(), name="image_add"),
+    path("images/delete/", ImageBulkDeleteView.as_view(), name="image_bulk_delete"),
     path("images/<int:pk>/", ImageView.as_view(), name="image"),
     path("images/<int:pk>/edit/", ImageEditView.as_view(), name="image_edit"),
     path("images/<int:pk>/delete/", ImageDeleteView.as_view(), name="image_delete"),

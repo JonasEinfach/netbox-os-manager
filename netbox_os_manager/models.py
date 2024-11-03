@@ -253,6 +253,35 @@ class Image(NetBoxModel):
     def get_status_color(self):
         return ImageStatusChoices.colors.get(self.status)
 
+    def image_exists(self) -> bool:
+        return bool(self.image.name)
+
+    # Save method for image file
+    def save(self, *args, **kwargs) -> None:
+        if not self.image_exists:
+            self.filename = ""
+            self.md5sum_calculated = ""
+            self.md5sum = ""
+            super().save(*args, **kwargs)
+            return
+
+        # Get Filename from image
+        self.filename: str = self.image.name.rsplit("/", 1)[-1]
+
+        # Calculate md5
+        md5 = hashlib.md5()
+        for chunk in self.image.chunks():
+            md5.update(chunk)
+        self.md5sum_calculated = md5.hexdigest()
+
+        # Check if md5 match and enable / disable image
+        if self.md5sum_calculated == self.md5sum:
+            self.status = ImageStatusChoices.IMAGE_STATUS_ACTIVE
+        else:
+            self.status = ImageStatusChoices.IMAGE_STATUS_ERROR_MD5_MISMATCH
+
+        super().save(*args, **kwargs)
+
 
 # ==============================================================================
 

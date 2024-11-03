@@ -50,6 +50,12 @@ class ImageListView(generic.ObjectListView):
     queryset = Image.objects.all()
     table = ImageTable
 
+    actions = {
+        "add": {"add"},
+        "export": set(),
+        "bulk_delete": {"delete"},
+    }
+
 
 # ==============================================================================
 
@@ -64,6 +70,14 @@ class ImageEditView(generic.ObjectEditView):
 
 class ImageDeleteView(generic.ObjectDeleteView):
     queryset = Image.objects.all()
+
+
+# ==============================================================================
+
+
+class ImageBulkDeleteView(generic.BulkDeleteView):
+    queryset = Image.objects.all()
+    table = ImageTable
 
 
 # ==============================================================================
