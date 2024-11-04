@@ -1,0 +1,57 @@
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Device Type</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Device Type</th>
+              <td>{{ object.device_type|linkify }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h5 class="card-header">Settings</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Device remote filesystem</th>
+              <td> {% badge object.get_device_remote_filesystem_display bg_color=object.get_device_remote_filesystem_color %} </td>
+            </tr>
+            <tr>
+              <th scope="row">Device upgrade mode</th>
+              <td> {% badge object.get_device_upgrade_mode_display bg_color=object.get_device_upgrade_mode_color %} </td>
+            </tr>
+            <tr>
+              <th scope="row">Max check attempts</th>
+              <td>{{ object.max_attempts_after_reload }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Wait time</th>
+              <td>{{ object.seconds_between_attemps_after_reload }} sec</td>
+            </tr>
+            <tr>
+              <th scope="row">Image add timeout</th>
+              <td>{{ object.minutes_image_add_timeout }} min</td>
+            </tr>
+            <tr>
+              <th scope="row">Image activation timeout</th>
+              <td>{{ object.minutes_image_activation_timeout }} min</td>
+            </tr>
+            
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

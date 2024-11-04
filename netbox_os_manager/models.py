@@ -69,8 +69,8 @@ class ImageDistributionServerDownloadMethodChoices(ChoiceSet):
     DOWNLOAD_METHOD_FTP = "ftp"
 
     CHOICES = [
-        (DOWNLOAD_METHOD_HTTP, "HTTP", "yellow"),
-        (DOWNLOAD_METHOD_FTP, "FTP", "yellow"),
+        (DOWNLOAD_METHOD_HTTP, "HTTP", "teal"),
+        (DOWNLOAD_METHOD_FTP, "FTP", "pink"),
     ]
 
 
@@ -161,8 +161,8 @@ class SettingsDeviceFilesystemChoices(ChoiceSet):
     FILESYSTEM_SDFLASH = "sdflash:"
 
     CHOICES = [
-        (FILESYSTEM_BOOTFLASH, "bootflash:", "grey"),
-        (FILESYSTEM_SDFLASH, "sdflash:", "grey"),
+        (FILESYSTEM_BOOTFLASH, "bootflash:", "teal"),
+        (FILESYSTEM_SDFLASH, "sdflash:", "pink"),
     ]
 
 
@@ -172,14 +172,14 @@ class SettingsDeviceFilesystemChoices(ChoiceSet):
 # Choices not changeable by admin via configuration.py
 
 
-class SettingsDeviceUpgradeMode(ChoiceSet):
+class SettingsDeviceUpgradeModeChoices(ChoiceSet):
     UPGRADE_INSTALL_MODE = "INSTALL_MODE"
     # UPGRADE_BUNDLE_MODE = "BUNDLE_MODE"
     # Bundle mode is still not supported
 
     CHOICES = [
-        (UPGRADE_INSTALL_MODE, "INSTALL_MODE", "grey"),
-        # (UPGRADE_BUNDLE_MODE, "BUNDLE_MODE", "grey"),
+        (UPGRADE_INSTALL_MODE, "INSTALL_MODE", "green"),
+        # (UPGRADE_BUNDLE_MODE, "BUNDLE_MODE", "orange"),
     ]
 
 
@@ -387,6 +387,11 @@ class ImageDistributionServer(NetBoxModel):
             "plugins:netbox_os_manager:imagedistributionserver", args=[self.pk]
         )
 
+    def get_download_method_color(self):
+        return ImageDistributionServerDownloadMethodChoices.colors.get(
+            self.download_method
+        )
+
 
 # ==============================================================================
 
@@ -570,8 +575,8 @@ class SettingsDeviceType(NetBoxModel):
         verbose_name="Device upgrade mode",
         help_text="Chose the upgrade mode of the device.",
         max_length=255,
-        choices=SettingsDeviceUpgradeMode,
-        default=SettingsDeviceUpgradeMode.UPGRADE_INSTALL_MODE,
+        choices=SettingsDeviceUpgradeModeChoices,
+        default=SettingsDeviceUpgradeModeChoices.UPGRADE_INSTALL_MODE,
     )
 
     max_attempts_after_reload = models.PositiveSmallIntegerField(
@@ -612,6 +617,12 @@ class SettingsDeviceType(NetBoxModel):
 
     def get_absolute_url(self):
         return reverse("plugins:netbox_os_manager:settingsdevicetype", args=[self.pk])
+
+    def get_device_remote_filesystem_color(self):
+        return SettingsDeviceFilesystemChoices.colors.get(self.device_remote_filesystem)
+
+    def get_device_upgrade_mode_color(self):
+        return SettingsDeviceUpgradeModeChoices.colors.get(self.device_upgrade_mode)
 
 
 # ==============================================================================

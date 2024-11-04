@@ -24,5 +24,8 @@ app_name = "netbox_os_manager"
 
 router = NetBoxRouter()
 router.register("images", views.ImageViewSet)
+router.register("goldenimages", views.GoldenImageViewSet)
+router.register("imagedistributionservers", views.ImageDistributionServerViewSet)
+router.register("settingsdevicetypes", views.SettingsDeviceTypeViewSet)
 
 urlpatterns = router.urls

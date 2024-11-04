@@ -29,6 +29,7 @@ from .models import (
 # using netbox devicetype
 from dcim.models import Site, Device, DeviceType
 
+
 # ==============================================================================
 # Global Variables
 # ==============================================================================
@@ -69,19 +70,15 @@ IMAGE_MD5SUM_CALCULATED = """
 class ImageTable(NetBoxTable):
 
     filename = tables.Column(linkify=True)
-
     md5sum = TemplateColumn(
         verbose_name="md5sum expected", template_code=IMAGE_MD5SUM, orderable=False
     )
-
     md5sum_calculated = TemplateColumn(
         verbose_name="md5sum calculated",
         template_code=IMAGE_MD5SUM_CALCULATED,
         orderable=False,
     )
-
     status = ChoiceFieldColumn()
-
     size = TemplateColumn(
         verbose_name="size",
         template_code=IMAGE_SIZE,
@@ -111,8 +108,8 @@ class ImageTable(NetBoxTable):
 
 class GoldenImageTable(NetBoxTable):
 
+    name = tables.Column(linkify=True)
     image = tables.Column(linkify=True)
-
     version = tables.Column(accessor="image.version")
 
     class Meta(NetBoxTable.Meta):
@@ -143,7 +140,6 @@ class GoldenImageTable(NetBoxTable):
 class ImageDistributionServerTable(NetBoxTable):
 
     ip = tables.Column(linkify=True)
-
     download_method = ChoiceFieldColumn()
 
     class Meta(NetBoxTable.Meta):
@@ -175,9 +171,7 @@ class ImageDistributionServerTable(NetBoxTable):
 class SettingsDeviceTypeTable(NetBoxTable):
 
     device_type = tables.Column(linkify=True)
-
     device_remote_filesystem = ChoiceFieldColumn()
-
     device_upgrade_mode = ChoiceFieldColumn()
 
     class Meta(NetBoxTable.Meta):
