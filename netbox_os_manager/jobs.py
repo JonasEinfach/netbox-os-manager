@@ -19,6 +19,8 @@ https://github.com/renatoalmeidaoliveira/nbrobot/blob/main/nb_robot/jobs.py
 https://github.com/netboxlabs/netbox-branching/blob/develop/netbox_branching/jobs.py
 https://github.com/DanSheps/netbox-config-backup/blob/master/netbox_config_backup/jobs/backup.py
 
+https://github.com/netbox-community/netbox/discussions/14040
+
 """
 
 
