@@ -299,6 +299,8 @@ class GoldenImage(NetBoxModel):
         related_name="+",
     )
 
+    weight = models.PositiveSmallIntegerField(verbose_name="weight", default=1000)
+
     description = models.CharField(
         verbose_name="description", max_length=200, blank=True
     )

@@ -27,6 +27,7 @@ from .forms import (
     GoldenImageForm,
     ImageDistributionServerForm,
     SettingsDeviceTypeForm,
+    SettingsDeviceTypeBulkEditForm,
 )
 
 
@@ -85,6 +86,22 @@ class ImageBulkDeleteView(generic.BulkDeleteView):
 
 class GoldenImageView(generic.ObjectView):
     queryset = GoldenImage.objects.all()
+
+    def get_extra_context(self, request, instance):
+        # Gather assigned objects for parsing in the template
+        assigned_objects = (
+            ("Regions", instance.regions.all),
+            ("Site Groups", instance.site_groups.all),
+            ("Sites", instance.sites.all),
+            ("Locations", instance.locations.all),
+            ("Device Types", instance.device_types.all),
+            ("Roles", instance.roles.all),
+            ("Platforms", instance.platforms.all),
+        )
+
+        return {
+            "assigned_objects": assigned_objects,
+        }
 
 
 # ==============================================================================
@@ -166,8 +183,25 @@ class SettingsDeviceTypeEditView(generic.ObjectEditView):
 # ==============================================================================
 
 
+class SettingsDeviceTypeBulkEditView(generic.BulkEditView):
+    queryset = SettingsDeviceType.objects.all()
+    table = SettingsDeviceTypeTable
+    form = SettingsDeviceTypeBulkEditForm
+
+
+# ==============================================================================
+
+
 class SettingsDeviceTypeDeleteView(generic.ObjectDeleteView):
     queryset = SettingsDeviceType.objects.all()
+
+
+# ==============================================================================
+
+
+class SettingsDeviceTypeBulkDeleteView(generic.BulkDeleteView):
+    queryset = SettingsDeviceType.objects.all()
+    table = SettingsDeviceTypeTable
 
 
 # ==============================================================================

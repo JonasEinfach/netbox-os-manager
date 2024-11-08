@@ -35,7 +35,9 @@ from .views import (
     SettingsDeviceTypeView,
     SettingsDeviceTypeListView,
     SettingsDeviceTypeEditView,
+    SettingsDeviceTypeBulkEditView,
     SettingsDeviceTypeDeleteView,
+    SettingsDeviceTypeBulkDeleteView,
 )
 
 # ==============================================================================
@@ -84,6 +86,8 @@ urlpatterns = (
     # SettingsDeviceTypes
     path("settingsdevicetypes/", SettingsDeviceTypeListView.as_view(), name="settingsdevicetype_list"),
     path("settingsdevicetypes/add/", SettingsDeviceTypeEditView.as_view(), name="settingsdevicetype_add"),
+    path("settingsdevicetypes/edit/", SettingsDeviceTypeBulkEditView.as_view(), name="settingsdevicetype_bulk_edit"),
+    path("settingsdevicetypes/delete/", SettingsDeviceTypeBulkDeleteView.as_view(), name="settingsdevicetype_bulk_delete"),
     path("settingsdevicetypes/<int:pk>/", SettingsDeviceTypeView.as_view(), name="settingsdevicetype"),
     path("settingsdevicetypes/<int:pk>/edit/", SettingsDeviceTypeEditView.as_view(), name="settingsdevicetype_edit"),
     path("settingsdevicetypes/<int:pk>/delete/",SettingsDeviceTypeDeleteView.as_view(),name="settingsdevicetype_delete"),

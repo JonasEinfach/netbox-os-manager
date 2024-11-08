@@ -119,6 +119,7 @@ class GoldenImageTable(NetBoxTable):
             "id",
             "name",
             "image",
+            "weight",
             "version",
             "description",
             "regions",
@@ -140,6 +141,7 @@ class GoldenImageTable(NetBoxTable):
 class ImageDistributionServerTable(NetBoxTable):
 
     ip = tables.Column(linkify=True)
+    name = tables.Column(linkify=True)
     download_method = ChoiceFieldColumn()
 
     class Meta(NetBoxTable.Meta):

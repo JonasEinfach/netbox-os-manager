@@ -2,7 +2,7 @@
 # Imports
 # ==============================================================================
 
-from netbox.forms import NetBoxModelForm
+from netbox.forms import NetBoxModelForm, NetBoxModelBulkEditForm
 
 from django import forms
 
@@ -13,6 +13,8 @@ from utilities.forms.fields import (
     DynamicModelMultipleChoiceField,
 )
 
+from utilities.forms.rendering import FieldSet
+
 # ==============================================================================
 # Special Model Imports
 # ==============================================================================
@@ -22,6 +24,8 @@ from .models import (
     GoldenImage,
     ImageDistributionServer,
     SettingsDeviceType,
+    SettingsDeviceUpgradeModeChoices,
+    SettingsDeviceFilesystemChoices,
 )
 
 from dcim.models import (
@@ -195,6 +199,33 @@ class SettingsDeviceTypeForm(NetBoxModelForm):
             "minutes_image_add_timeout",
             "minutes_image_activation_timeout",
         )
+
+
+# ==============================================================================
+
+
+class SettingsDeviceTypeBulkEditForm(NetBoxModelBulkEditForm):
+
+    device_remote_filesystem = forms.ChoiceField(
+        choices=SettingsDeviceFilesystemChoices, required=False
+    )
+
+    device_upgrade_mode = forms.ChoiceField(
+        choices=SettingsDeviceUpgradeModeChoices, required=False
+    )
+
+    model = SettingsDeviceType
+    fieldsets = (
+        FieldSet(
+            "device_remote_filesystem",
+            "device_upgrade_mode",
+            "max_attempts_after_reload",
+            "seconds_between_attemps_after_reload",
+            "minutes_image_add_timeout",
+            "minutes_image_activation_timeout",
+            name=("Settings"),
+        ),
+    )
 
 
 # ==============================================================================
