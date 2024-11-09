@@ -7,42 +7,8 @@ from django.urls import path
 # Views for changelog
 from netbox.views.generic import ObjectChangeLogView
 
-# ==============================================================================
-# Special Model Imports
-# ==============================================================================
-
-from .models import (
-    Image,
-    GoldenImage,
-    ImageDistributionServer,
-    SettingsDeviceType,
-)
-
-from .views import (
-    ImageView,
-    ImageListView,
-    ImageEditView,
-    ImageDeleteView,
-    ImageBulkDeleteView,
-    GoldenImageView,
-    GoldenImageListView,
-    GoldenImageEditView,
-    GoldenImageDeleteView,
-    ImageDistributionServerView,
-    ImageDistributionServerListView,
-    ImageDistributionServerEditView,
-    ImageDistributionServerDeleteView,
-    SettingsDeviceTypeView,
-    SettingsDeviceTypeListView,
-    SettingsDeviceTypeEditView,
-    SettingsDeviceTypeBulkEditView,
-    SettingsDeviceTypeDeleteView,
-    SettingsDeviceTypeBulkDeleteView,
-)
-
-# ==============================================================================
-# Global Variables
-# ==============================================================================
+from netbox_os_manager.models import *
+from netbox_os_manager.views import *
 
 # ==============================================================================
 # Urls

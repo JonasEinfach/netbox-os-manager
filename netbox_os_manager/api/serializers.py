@@ -14,7 +14,7 @@ from netbox.api.serializers import WritableNestedSerializer
 # ==============================================================================
 
 
-from ..models import Image, GoldenImage, ImageDistributionServer, SettingsDeviceType
+from netbox_os_manager.models import *
 from dcim.models import (
     DeviceRole,
     DeviceType,

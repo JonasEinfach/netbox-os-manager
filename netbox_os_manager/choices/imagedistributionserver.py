@@ -1,5 +1,7 @@
 from utilities.choices import ChoiceSet
 
+__all__ = ["ImageDistributionServerDownloadMethodChoices"]
+
 
 class ImageDistributionServerDownloadMethodChoices(ChoiceSet):
     DOWNLOAD_METHOD_HTTP = "http"
