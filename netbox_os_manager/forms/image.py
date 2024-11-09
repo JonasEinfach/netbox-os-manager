@@ -2,7 +2,11 @@
 # Imports
 # ==============================================================================
 
-from netbox.forms import NetBoxModelForm, NetBoxModelBulkEditForm
+from netbox.forms import (
+    NetBoxModelForm,
+    NetBoxModelBulkEditForm,
+    NetBoxModelFilterSetForm,
+)
 from django import forms
 from utilities.forms.fields import (
     CommentField,
@@ -10,10 +14,12 @@ from utilities.forms.fields import (
     DynamicModelMultipleChoiceField,
 )
 from utilities.forms.rendering import FieldSet
+from utilities.forms.utils import add_blank_choice
 
 from netbox_os_manager.models.image import *
+from netbox_os_manager.choices.image import *
 
-__all__ = ["ImageForm"]
+__all__ = ["ImageForm", "ImageFilterForm"]
 
 # ==============================================================================
 # Forms
@@ -61,3 +67,30 @@ class ImageForm(NetBoxModelForm):
             self.fields["image"].widget.attrs["disabled"] = True
             self.fields["image"].initial = self.instance.image
             self.fields["image"].help_text = "Image File can't be changed!"
+
+
+class ImageFilterForm(NetBoxModelFilterSetForm):
+    model = Image
+
+    status = forms.ChoiceField(
+        choices=add_blank_choice(ImageStatusChoices),
+        required=False,
+    )
+
+    filename = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Filename",
+            }
+        ),
+    )
+
+    version = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Version",
+            }
+        ),
+    )

@@ -7,6 +7,7 @@ from netbox.views import generic
 from netbox_os_manager.models.image import *
 from netbox_os_manager.tables.image import *
 from netbox_os_manager.forms.image import *
+from netbox_os_manager.filtersets.image import *
 
 __all__ = [
     "ImageView",
@@ -28,6 +29,8 @@ class ImageView(generic.ObjectView):
 class ImageListView(generic.ObjectListView):
     queryset = Image.objects.all()
     table = ImageTable
+    filterset = ImageFilterSet
+    filterset_form = ImageFilterForm
 
     actions = {
         "add": {"add"},
