@@ -83,15 +83,32 @@ class SettingsDeviceTypeBulkEditForm(NetBoxModelBulkEditForm):
         choices=SettingsDeviceUpgradeModeChoices, required=False
     )
 
+    max_attempts_after_reload = forms.IntegerField(required=False)
+    seconds_between_attemps_after_reload = forms.IntegerField(required=False)
+    minutes_image_add_timeout = forms.IntegerField(required=False)
+    minutes_image_activation_timeout = forms.IntegerField(required=False)
+    version_cli_show_command = forms.CharField(required=False)
+    version_regex_search = forms.CharField(required=False)
+    version_regex_group_index = forms.IntegerField(required=False)
+
     model = SettingsDeviceType
     fieldsets = (
         FieldSet(
             "device_remote_filesystem",
             "device_upgrade_mode",
+            name=("Device"),
+        ),
+        FieldSet(
             "max_attempts_after_reload",
             "seconds_between_attemps_after_reload",
             "minutes_image_add_timeout",
             "minutes_image_activation_timeout",
-            name=("Settings"),
+            name=("Timer"),
+        ),
+        FieldSet(
+            "version_cli_show_command",
+            "version_regex_search",
+            "version_regex_group_index",
+            name=("Version"),
         ),
     )
