@@ -5,7 +5,9 @@
 from netbox.views import generic
 
 from netbox_os_manager.models.image import *
+from netbox_os_manager.models.goldenimage import *
 from netbox_os_manager.tables.image import *
+from netbox_os_manager.tables.goldenimage import *
 from netbox_os_manager.forms.image import *
 from netbox_os_manager.filtersets.image import *
 
@@ -24,6 +26,14 @@ __all__ = [
 
 class ImageView(generic.ObjectView):
     queryset = Image.objects.all()
+
+    def get_extra_context(self, request, instance):
+        table = GoldenImageTable(GoldenImage.objects.filter(image=instance.id))
+        table.configure(request)
+
+        return {
+            "goldenimage_table": table,
+        }
 
 
 class ImageListView(generic.ObjectListView):

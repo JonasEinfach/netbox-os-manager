@@ -93,6 +93,7 @@ class Image(NetBoxModel):
     def get_status_color(self):
         return ImageStatusChoices.colors.get(self.status)
 
+    @property
     def image_exists(self) -> bool:
         return bool(self.image.name)
 

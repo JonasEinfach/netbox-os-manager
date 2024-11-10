@@ -59,5 +59,15 @@
       {% include 'inc/panels/comments.html' %}
     </div>
   </div>
+  <div class="row">
+    <div class="col col-md-12">
+      <div class="card">
+        <h5 class="card-header">Golden Images</h5>
+        <div class="card-body table-responsive">
+          {% render_table goldenimage_table %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock content %}

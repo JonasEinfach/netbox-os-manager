@@ -63,7 +63,7 @@ class ImageForm(NetBoxModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # If a image is uploaded, no image file change is allowed!
+        # If a image is allready uploaded, no image file change is allowed!
         if self.instance.image_exists:
             self.fields["image"].widget.attrs["disabled"] = True
             self.fields["image"].initial = self.instance.image
