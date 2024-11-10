@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="card">
-        <h5 class="card-header">Settings</h5>
+        <h5 class="card-header">Timer</h5>
         <div class="card-body">
           <table class="table table-hover attr-table">
             <tr>
@@ -42,7 +42,25 @@
               <th scope="row">Image activation timeout</th>
               <td>{{ object.minutes_image_activation_timeout }} min</td>
             </tr>
-            
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h5 class="card-header">Version</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Version cli show command</th>
+              <td>{{ object.version_cli_show_command }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Regex to get the version</th>
+              <td>{{ object.version_regex_search }} sec</td>
+            </tr>
+            <tr>
+              <th scope="row">Regex capture group index</th>
+              <td>{{ object.version_regex_group_index }} min</td>
+            </tr>
           </table>
         </div>
       </div>
@@ -51,6 +69,16 @@
     <div class="col col-md-6">
       {% include 'inc/panels/tags.html' %}
       {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-12">
+      <div class="card">
+        <h5 class="card-header">Applied to {{ device_count }} device/s:</h5>
+        <div class="card-body table-responsive">
+          {% render_table device_table %}
+        </div>
+      </div>
     </div>
   </div>
 </div>

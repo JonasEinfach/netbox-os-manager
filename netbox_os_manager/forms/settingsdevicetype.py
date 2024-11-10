@@ -32,6 +32,28 @@ class SettingsDeviceTypeForm(NetBoxModelForm):
 
     comments = CommentField()
 
+    fieldsets = (
+        FieldSet(
+            "device_type",
+            "device_remote_filesystem",
+            "device_upgrade_mode",
+            name=("Device"),
+        ),
+        FieldSet(
+            "max_attempts_after_reload",
+            "seconds_between_attemps_after_reload",
+            "minutes_image_add_timeout",
+            "minutes_image_activation_timeout",
+            name=("Timer"),
+        ),
+        FieldSet(
+            "version_cli_show_command",
+            "version_regex_search",
+            "version_regex_group_index",
+            name=("Version"),
+        ),
+    )
+
     class Meta:
         model = SettingsDeviceType
         fields = (
@@ -42,6 +64,9 @@ class SettingsDeviceTypeForm(NetBoxModelForm):
             "seconds_between_attemps_after_reload",
             "minutes_image_add_timeout",
             "minutes_image_activation_timeout",
+            "version_cli_show_command",
+            "version_regex_search",
+            "version_regex_group_index",
         )
 
 

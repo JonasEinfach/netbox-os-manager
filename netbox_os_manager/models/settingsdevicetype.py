@@ -60,6 +60,26 @@ class SettingsDeviceType(NetBoxModel):
         default=20,
     )
 
+    version_cli_show_command = models.CharField(
+        verbose_name="Version cli show command",
+        help_text="Enter the cli show command to get the actual version of the device.",
+        max_length=255,
+        default="show version",
+    )
+
+    version_regex_search = models.CharField(
+        verbose_name="Regex to get the version",
+        help_text="Regular expression to get the version from the version show command.",
+        max_length=255,
+        default="(?:Version|System version)\s+(\d+\.\d+\.\d+\.\d+)",
+    )
+
+    version_regex_group_index = models.PositiveSmallIntegerField(
+        verbose_name="Regex capture group index",
+        help_text="Index to get from the regex capture group.",
+        default=1,
+    )
+
     comments = models.TextField(
         blank=True,
     )

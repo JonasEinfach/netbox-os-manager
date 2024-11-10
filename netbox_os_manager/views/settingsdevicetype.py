@@ -10,6 +10,7 @@ from netbox_os_manager.forms.settingsdevicetype import *
 
 # Custom stuff
 from dcim.tables import DeviceTable
+from dcim.models import Device
 
 __all__ = [
     "SettingsDeviceTypeView",
@@ -30,12 +31,12 @@ class SettingsDeviceTypeView(generic.ObjectView):
 
     def get_extra_context(self, request, instance):
         # Gather all device from the device type to display all devices
-        table = DeviceTable(instance.device_type.all())
+        table = DeviceTable(Device.objects.filter(device_type=instance.device_type))
         table.configure(request)
 
-        return {
-            "device_table": table,
-        }
+        device_count = len(Device.objects.filter(device_type=instance.device_type))
+
+        return {"device_table": table, "device_count": device_count}
 
 
 class SettingsDeviceTypeListView(generic.ObjectListView):
