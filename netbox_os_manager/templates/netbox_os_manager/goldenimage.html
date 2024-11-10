@@ -14,6 +14,14 @@
               <th scope="row">Description</th>
               <td>{{ object.description }}</td>
             </tr>
+            <tr>
+              <th scope="row">Image</th>
+              <td>{{ object.image|linkify }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Image Version</th>
+              <td>{{ object.image.version }}</td>
+            </tr>
           </table>
         </div>
       </div>

@@ -8,6 +8,9 @@ from netbox_os_manager.models.settingsdevicetype import *
 from netbox_os_manager.tables.settingsdevicetype import *
 from netbox_os_manager.forms.settingsdevicetype import *
 
+# Custom stuff
+from dcim.tables import DeviceTable
+
 __all__ = [
     "SettingsDeviceTypeView",
     "SettingsDeviceTypeListView",
@@ -24,6 +27,15 @@ __all__ = [
 
 class SettingsDeviceTypeView(generic.ObjectView):
     queryset = SettingsDeviceType.objects.all()
+
+    def get_extra_context(self, request, instance):
+        # Gather all device from the device type to display all devices
+        table = DeviceTable(instance.device_type.all())
+        table.configure(request)
+
+        return {
+            "device_table": table,
+        }
 
 
 class SettingsDeviceTypeListView(generic.ObjectListView):

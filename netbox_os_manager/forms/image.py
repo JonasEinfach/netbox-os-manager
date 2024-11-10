@@ -12,6 +12,7 @@ from utilities.forms.fields import (
     CommentField,
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
+    TagFilterField,
 )
 from utilities.forms.rendering import FieldSet
 from utilities.forms.utils import add_blank_choice
@@ -71,6 +72,12 @@ class ImageForm(NetBoxModelForm):
 
 class ImageFilterForm(NetBoxModelFilterSetForm):
     model = Image
+    fieldsets = (
+        FieldSet("q", "filter_id", "tag"),
+        FieldSet("status", "filename", "version", name=("Image")),
+    )
+
+    tag = TagFilterField(model)
 
     status = forms.ChoiceField(
         choices=add_blank_choice(ImageStatusChoices),
