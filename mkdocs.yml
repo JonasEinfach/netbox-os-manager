@@ -1,4 +1,4 @@
-site_name: Cookiecutter NetBox Plugin
+site_name: NetBox OS Manager - Plugin
 site_url: https://github.com/jonasnieberle/netbox-os-manager
 repo_url: https://github.com/jonasnieberle/netbox-os-manager
 repo_name: jonasnieberle/netbox-os-manager
