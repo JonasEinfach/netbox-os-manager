@@ -24,7 +24,28 @@ https://github.com/netbox-community/netbox/discussions/14040
 """
 
 
-class OSManagerJob(JobRunner):
+class ImageUploadOSManagerJob(JobRunner):
 
     class Meta:
-        name = "OSManagerJob"
+        name = "Image Upload OS Manager"
+
+    def run(self, *args, **kwargs):
+        print("Execute job ImageUploadOSManagerJob")
+
+
+class ImageAddOSManagerJob(JobRunner):
+
+    class Meta:
+        name = "Image Add OS Manager"
+
+    def run(self, *args, **kwargs):
+        print("Execute job ImageAddOSManagerJob")
+
+
+class ImageActivateOSManagerJob(JobRunner):
+
+    class Meta:
+        name = "Image Activate OS Manager"
+
+    def run(self, *args, **kwargs):
+        print("Execute job ImageActivateOSManagerJob")
